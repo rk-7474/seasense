@@ -15,7 +15,7 @@ interface Location {
   id: number
   name: string
   position: [number, number]
-  description: string
+  description?: string
   type: string
   metrics: {
     co2: number

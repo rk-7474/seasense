@@ -21,7 +21,7 @@ interface Location {
   id: number
   name: string
   position: [number, number]
-  description: string
+  description?: string
   type: string
   metrics: {
     co2: number
@@ -33,22 +33,22 @@ interface Location {
 const locations: Location[] = [
   {
     id: 1,
-    name: "Venetian Lighthouse",
-    position: [45.4347, 12.3397],
-    description: "Historic lighthouse with stunning views of the lagoon",
-    type: "Coastal Landmark",
+    name: "Sensor 1",
+    position: [45.414403, 12.288523],
+    type: "Fixed sensor",
+    description: "Coastal floating sensor",
     metrics: {
       co2: 45,  // mg/L
-      ph: 7.5,  // pH scale
+      ph: 8.1,  // pH scale
       temperature: 22  // °C
     }
   },
   {
     id: 2,
-    name: "Murano Glass Factory",
-    position: [45.4400, 12.3500],
-    description: "Famous for exquisite glass-making techniques",
-    type: "Cultural Site",
+    name: "Water station",
+    position: [45.389895, 12.301345],
+    type: "Data tower sensor",
+    description: "Stationary water monitoring",
     metrics: {
       co2: 50,  // mg/L
       ph: 7.2,  // pH scale
@@ -57,10 +57,10 @@ const locations: Location[] = [
   },
   {
     id: 3,
-    name: "Lido Beach",
-    position: [45.4210, 12.3600],
-    description: "Popular beach destination with golden sands",
-    type: "Recreational Area",
+    name: "Sensor 2",
+    position: [45.465775, 12.334476],
+    description: "Coastal floating sensor",
+    type: "Fixed sensor",
     metrics: {
       co2: 40,  // mg/L
       ph: 8.0,  // pH scale
@@ -69,26 +69,14 @@ const locations: Location[] = [
   },
   {
     id: 4,
-    name: "Giudecca Island",
-    position: [45.4320, 12.3000],
-    description: "Quiet island known for its gardens and views",
-    type: "Island",
+    name: "ROV Sensor",
+    position: [45.477042, 12.371589],
+    description: "Movable water vehicle",
+    type: "Movable sensor",
     metrics: {
       co2: 55,  // mg/L
       ph: 7.8,  // pH scale
       temperature: 23  // °C
-    }
-  },
-  {
-    id: 5,
-    name: "Sant'Elena Park",
-    position: [45.4260, 12.3470],
-    description: "A serene park with walking paths and greenery",
-    type: "Park",
-    metrics: {
-      co2: 42,  // mg/L
-      ph: 7.4,  // pH scale
-      temperature: 21  // °C
     }
   }
 ];
@@ -120,7 +108,7 @@ export default function Map() {
       
       <MapContainer 
         center={veniceCenter}
-        zoom={15} 
+        zoom={12} 
         minZoom={5} 
         scrollWheelZoom={true}
         style={{ width: '100%', height: '100%' }}
