@@ -138,10 +138,10 @@ export default function Map() {
               click: () => handleLocationSelect(location),
             }}
           >
-            <Popup>
+            {/* <Popup>
               <div className="text-sm font-medium">{location.name}</div>
               <div className="text-xs text-gray-500">{location.type}</div>
-            </Popup>
+            </Popup> */}
           </Marker>
         ))}
       </MapContainer>
