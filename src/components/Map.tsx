@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
@@ -89,8 +89,21 @@ const locations: Location[] = [
 export default function Map() {
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(null)
   const [isCardVisible, setIsCardVisible] = useState(false)
+  const [isMapLoaded, setIsMapLoaded] = useState(false)
   const veniceCenter: [number, number] = [45.4371908, 12.3345898]
   const router = useRouter();
+
+  // Fallback to show map if loading takes too long
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!isMapLoaded) {
+        setIsMapLoaded(true);
+        console.warn('Map load timeout - showing content anyway');
+      }
+    }, 3000); // 3 second timeout
+
+    return () => clearTimeout(timer);
+  }, [isMapLoaded]);
 
   const handleLocationSelect = (location: Location) => {
     setSelectedLocation(location)
@@ -103,6 +116,12 @@ export default function Map() {
 
   return (
     <div className="relative w-full h-screen">
+      {/* Loading State */}
+      {!isMapLoaded && (
+        <div className="absolute inset-0 bg-black z-50 flex items-center justify-center">
+          <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      )}
       <Button 
         className="absolute bottom-4 left-4 z-[1000] w-72 h-12 flex justify-center items-center hover:-translate-y-1 transition-all"
         onClick={() => router.push('/')}  
@@ -125,13 +144,17 @@ export default function Map() {
         />
       )}
       
-      <MapContainer 
-        center={veniceCenter}
-        zoom={12} 
-        minZoom={5} 
-        scrollWheelZoom={true}
-        style={{ width: '100%', height: '100%' }}
-      >
+      <div className={`w-full h-full transition-opacity duration-1000 ${
+        isMapLoaded ? 'opacity-100' : 'opacity-0'
+      }`}>
+        <MapContainer 
+          center={veniceCenter}
+          zoom={12} 
+          minZoom={5} 
+          scrollWheelZoom={true}
+          style={{ width: '100%', height: '100%' }}
+          whenReady={() => setIsMapLoaded(true)}
+        >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -151,7 +174,8 @@ export default function Map() {
             </Popup> */}
           </Marker>
         ))}
-      </MapContainer>
+        </MapContainer>
+      </div>
     </div>
     
   )
