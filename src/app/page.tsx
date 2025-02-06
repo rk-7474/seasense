@@ -26,7 +26,7 @@ export default function Home() {
       {/* Content */}
       <div className="relative z-20 min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 text-white">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-5xl sm:text-7xl font-bold mb-6 drop-shadow-2xl shadow-white tracking-tighter bg-gradient-to-r from-sky-400 to-blue-600 text-transparent bg-clip-text animate-gradient"> 
+          <h1 className="text-5xl sm:text-7xl hover:scale-105 transition-all font-bold mb-6 drop-shadow-2xl shadow-white tracking-tighter bg-gradient-to-r from-sky-400 to-blue-600 text-transparent bg-clip-text animate-gradient"> 
             SeaSense
           </h1>
           <h2 className="text-2xl sm:text-4xl font-bold mb-6 tracking-tight">

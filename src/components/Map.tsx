@@ -5,6 +5,10 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 import LocationCard from './LocationCard'
+import { ArrowLeft } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { useRouter } from 'next/navigation'
+import { Card } from './ui/card'
 
 // Fix for default markers
 const icon = L.icon({
@@ -86,6 +90,7 @@ export default function Map() {
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(null)
   const [isCardVisible, setIsCardVisible] = useState(false)
   const veniceCenter: [number, number] = [45.4371908, 12.3345898]
+  const router = useRouter();
 
   const handleLocationSelect = (location: Location) => {
     setSelectedLocation(location)
@@ -98,6 +103,20 @@ export default function Map() {
 
   return (
     <div className="relative w-full h-screen">
+      <Button 
+        className="absolute bottom-4 left-4 z-[1000] w-72 h-12 flex justify-center items-center hover:-translate-y-1 transition-all"
+        onClick={() => router.push('/')}  
+      >
+        <ArrowLeft />Back to home
+      </Button>
+      <div className="absolute pointer-events-none w-full bottom-4 flex justify-center items-center z-[1000]">
+          <h1 className="text-3xl hover:scale-110 pointer-events-auto cursor-default opacity-65 hover:opacity-100 transition-all sm:text-5xl font-bold drop-shadow-2xl mb-5 shadow-white tracking-tighter bg-gradient-to-r from-sky-400 to-blue-600 text-transparent bg-clip-text animate-gradient"> 
+            SeaSense
+          </h1>
+      </div>
+      <Card className="absolute flex justify-center items-center text-zinc-700 p-3 top-4 left-20 z-[1000] w-max cursor-help opacity-70 hover:opacity-100 shadow-lg transition-all">
+        <p>Try to click on the map marks to see live data</p>
+      </Card>
       {selectedLocation && (
         <LocationCard
           location={selectedLocation}
@@ -134,5 +153,6 @@ export default function Map() {
         ))}
       </MapContainer>
     </div>
+    
   )
 }
