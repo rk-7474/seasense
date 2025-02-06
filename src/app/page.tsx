@@ -2,20 +2,52 @@
 
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+
 export default function Home() {
   const router = useRouter();
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [videoError, setVideoError] = useState(false);
+
+  // Fallback to show content if video takes too long or fails
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!isVideoLoaded) {
+        setIsVideoLoaded(true);
+        console.warn('Video load timeout - showing content anyway');
+      }
+    }, 3000); // 3 second timeout
+
+    return () => clearTimeout(timer);
+  }, [isVideoLoaded]);
   return (
     <div className="relative min-h-screen w-full overflow-hidden">
+      {/* Loading State */}
+      {!isVideoLoaded && (
+        <div className="absolute inset-0 bg-black z-50 flex items-center justify-center">
+          <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      )}
+      
       {/* Video Background */}
       <video
         autoPlay
         loop
         muted
         playsInline
-        className="absolute top-0 left-0 w-full h-full object-cover z-0"
+        preload="auto"
+        onLoadedData={() => setIsVideoLoaded(true)}
+        onError={(e) => {
+          console.error('Video loading error:', e);
+          setVideoError(true);
+          setIsVideoLoaded(true);
+        }}
+        className={`absolute top-0 left-0 w-full h-full object-cover z-0 transition-opacity duration-1000 ${
+          isVideoLoaded ? 'opacity-100' : 'opacity-0'
+        }`}
       >
         <source
-          src="https://videos.pexels.com/video-files/2776522/2776522-uhd_2560_1440_30fps.mp4"
+          src="/ocean-background.mp4"
           type="video/mp4"
         />
       </video>
@@ -24,7 +56,9 @@ export default function Home() {
       <div className="absolute top-0 left-0 w-full h-full bg-black/40 z-10" />
 
       {/* Content */}
-      <div className="relative z-20 min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 text-white">
+      <div className={`relative z-20 min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 text-white transition-opacity duration-1000 ${
+        isVideoLoaded ? 'opacity-100' : 'opacity-0'
+      }`}>
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-5xl sm:text-7xl hover:scale-105 transition-all font-bold mb-6 drop-shadow-2xl shadow-white tracking-tighter bg-gradient-to-r from-sky-400 to-blue-600 text-transparent bg-clip-text animate-gradient"> 
             SeaSense
