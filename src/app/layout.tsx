@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Seasense",
   description: "Discover cutting-edge sea sensors to analyze essential ocean values such as carbon emissions, pH levels, and more.",
+  icons: {
+    icon: '/favicon.ico'
+  }
 };
 
 export default function RootLayout({
