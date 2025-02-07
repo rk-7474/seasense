@@ -1,0 +1,5 @@
+{
+  "image": "ghcr.io/audacioustux/devcontainers/bun:1",
+  "features": {
+  }
+}
