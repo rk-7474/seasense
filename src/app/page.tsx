@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
@@ -54,6 +55,11 @@ export default function Home() {
 
       {/* Overlay */}
       <div className="absolute top-0 left-0 w-full h-full bg-black/40 z-10" />
+
+      <div className="absolute bottom-4 left-4 w-max h-max flex flex-row justify-center items-center">
+        <p className="text-lg text-white">Powered by Planck Team</p>
+        <Image className="ml-3" alt="planck-logo" src="/planck_logo.png" width={55} height={40}/>
+      </div>
 
       {/* Content */}
       <div className={`relative z-20 min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 text-white transition-opacity duration-1000 ${
