@@ -1,6 +1,23 @@
 {
-  "image": "ghcr.io/devcontainers/features/node:1",
+  "name": "Next.js App",
+  "image": "mcr.microsoft.com/vscode/devcontainers/javascript-node:0-18",
   "features": {
-  }
+    "node": "18"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "msjsdiag.vscode-react-native",
+        "mhutchie.git-graph"
+      ],
+      "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+      }
+    }
+  },
+  "postCreateCommand": "npm install",
+  "forwardPorts": [3000],
+  "remoteUser": "node"
 }
-
