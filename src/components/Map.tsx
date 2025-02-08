@@ -123,7 +123,7 @@ export default function Map() {
           <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
         </div>
       )}
-      <Image className="absolute right-4 top-4 z-[1000] opacity-65 hover:opacity-100 hover:scale-110 transition-all cursor-pointer" alt="planck-logo" src="/planck_logo.png" width={55} height={40}/>
+      <Image className="absolute right-4 top-4 z-[1000] opacity-65 hover:opacity-100 hover:scale-110 transition-all cursor-pointer" alt="planck-logo" src="/planck_team_logo.png" width={55} height={40}/>
       <Button 
         className="absolute bottom-4 left-4 z-[1000] w-72 h-12 flex justify-center items-center hover:-translate-y-1 transition-all"
         onClick={() => router.push('/')}  

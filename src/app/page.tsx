@@ -58,7 +58,7 @@ export default function Home() {
 
       <div className="absolute bottom-4 left-4 w-max h-max flex flex-row justify-center items-center">
         <p className="text-lg text-white">Powered by Planck Team</p>
-        <Image className="ml-3" alt="planck-logo" src="/planck_logo.png" width={55} height={40}/>
+        <Image className="ml-3" alt="planck-logo" src="/planck_team_logo.png" width={55} height={40}/>
       </div>
 
       {/* Content */}
