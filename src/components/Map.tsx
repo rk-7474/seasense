@@ -34,17 +34,35 @@ export default function Map() {
   const [locations, setLocations] = useState<Location[]>([]);
   const router = useRouter();
 
+  // Fetch map data once on mount
+  useEffect(() => {
+    let mounted = true;
+
+    const fetchData = async () => {
+      try {
+        const data = await getMapData();
+        console.log("Map data received:", data);
+        if (!data || data.length === 0) {
+          console.warn("No locations data received");
+        }
+        if (mounted) {
+          setLocations(data || []);
+        }
+      } catch (error) {
+        console.error("Error fetching map data:", error);
+      }
+    };
+
+    fetchData();
+
+    return () => {
+      mounted = false;
+      setLocations([]); // Clear locations on unmount
+    };
+  }, []); // Only run once on mount
+
   // Fallback to show map if loading takes too long
   useEffect(() => {
-    (async () => {
-      const data = await getMapData();
-      console.log("Map data received:", data);
-      if (!data || data.length === 0) {
-        console.warn("No locations data received");
-      }
-      setLocations(data || []);
-    })();
-
     const timer = setTimeout(() => {
       if (!isMapLoaded) {
         setIsMapLoaded(true);

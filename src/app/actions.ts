@@ -97,46 +97,35 @@ export async function getSensorData(id: string): Promise<SensorData> {
 
 export const getMapData = async () => {
   try {
-  const latestDataSubquery = db
-    .select({
-      sensorId: received_data.sensorId,
-      maxTimestamp: sql<string>`MAX(${received_data.timestamp})`.as('max_timestamp'),
-    })
-    .from(received_data)
-    .groupBy(received_data.sensorId)
-    .as('latest_data');
 
-    console.log("Starting to fetch map data from devices_infos table...");
-    // First verify if table exists and has data
-    const tableCheck = await db
-      .select({ count: sql<number>`count(*)` })
-      .from(sensors);
-    console.log("Table check result:", tableCheck);
-
-    const result = await db
+  const data = await db
     .select({
-      // Sensor fields
       id: sensors.id,
       name: sensors.name,
       type: sensors.type,
       description: sensors.description,
       longitude: sensors.longitude,
       latitude: sensors.latitude,
-      // Latest data fields
       latestData: received_data.data,
       timestamp: received_data.timestamp,
     })
     .from(sensors)
     .leftJoin(
       received_data,
-      sql`${received_data.sensorId} = ${sensors.id} AND 
-          ${received_data.timestamp} = (
-            SELECT MAX(timestamp)
-            FROM ${received_data}
-            WHERE ${received_data.sensorId} = ${sensors.id}
-          )`
+      and(
+        eq(received_data.sensorId, sensors.id),
+        sql`${received_data.timestamp} IN (
+          SELECT MAX(timestamp)
+          FROM ${received_data} rd2
+          WHERE rd2.sensor_id = ${sensors.id}
+        )`
+      )
     )
     .orderBy(sensors.id);
+
+    const map = new Map();
+    data.forEach(obj => map.set(obj.id, obj)); // Replace previous objects with the same id
+    const result = [...map.values()];
   
     console.log("Raw database result:", result);
     
@@ -146,17 +135,17 @@ export const getMapData = async () => {
     }
 
     const locations: Location[] = result.map(sensor => ({
-    id: sensor.id,
-    name: sensor.name,
-    type: sensor.type,
-    description: sensor.description,
-    position: [Number(sensor.latitude), Number(sensor.longitude)],
-    metrics: sensor.latestData ? {
-      co2: (sensor.latestData as Metrics).co2,
-      ph: (sensor.latestData as Metrics).ph,
-      temperature: (sensor.latestData as Metrics).temperature
-    } : { co2: null, ph: null, temperature: null }
-  }));
+      id: sensor.id,
+      name: sensor.name,
+      type: sensor.type,
+      description: sensor.description,
+      position: [Number(sensor.latitude), Number(sensor.longitude)],
+      metrics: sensor.latestData ? {
+        co2: (sensor.latestData as Metrics).co2,
+        ph: (sensor.latestData as Metrics).ph,
+        temperature: (sensor.latestData as Metrics).temperature
+      } : { co2: null, ph: null, temperature: null }
+    }));
 
     console.log("Processed locations:", locations);
     return locations;

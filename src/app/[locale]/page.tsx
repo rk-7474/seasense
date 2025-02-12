@@ -5,6 +5,8 @@ import Image from "next/image";
 import { useRouter } from "@/lib/navigation";
 import { useState, useEffect } from "react";
 import { useTranslations } from 'next-intl';
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+
 
 export default function Home() {
   const t = useTranslations('Index');
@@ -57,6 +59,7 @@ export default function Home() {
 
       {/* Overlay */}
       <div className="absolute top-0 left-0 w-full h-full bg-black/40 z-10" />
+      
 
       <div className="absolute bottom-4 left-4 w-max h-max flex flex-row justify-center items-center">
           <p className="text-lg text-white">{t('poweredBy')}</p>
@@ -68,6 +71,7 @@ export default function Home() {
         isVideoLoaded ? 'opacity-100' : 'opacity-0'
       }`}>
         <div className="max-w-4xl mx-auto text-center">
+          <LanguageSwitcher />
           <h1 className="text-5xl sm:text-7xl hover:scale-105 transition-all font-bold mb-6 drop-shadow-2xl shadow-white tracking-tighter bg-gradient-to-r from-sky-400 to-blue-600 text-transparent bg-clip-text animate-gradient"> 
             {t('title')}
           </h1>
