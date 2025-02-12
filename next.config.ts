@@ -1,9 +1,9 @@
 import createNextIntlPlugin from 'next-intl/plugin';
 
-const withNextIntl = createNextIntlPlugin();
+const withNextIntl = createNextIntlPlugin('./src/i18n.ts');
 
 const config = {
   // Other config options
 };
 
-export default withNextIntl(config);
+export default withNextIntl(config);  

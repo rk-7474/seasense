@@ -3,11 +3,12 @@ import ClientSensorInfo from "@/components/ClientSensorInfo"
 import { Suspense } from "react"
 import { useTranslations } from 'next-intl'
 
-export default async function InfoPage({ params }: { params: { id: string } }) {
+export default async function InfoPage({ params } : { params: Promise<{ id: string }> }) {
   const t = useTranslations('Info');
 
   try {
-    const sensor = await getSensorData(params.id);
+    const {id} = await params;
+    const sensor = await getSensorData(id);
     
     if (!sensor) {
       return (
