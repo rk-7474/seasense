@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useTranslations } from 'next-intl'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
@@ -25,6 +26,7 @@ const icon = L.icon({
 })
 
 export default function Map() {
+  const t = useTranslations('Map')
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(null)
   const [isCardVisible, setIsCardVisible] = useState(false)
   const [isMapLoaded, setIsMapLoaded] = useState(false)
@@ -75,15 +77,15 @@ export default function Map() {
         className="absolute bottom-4 left-4 z-[1000] w-72 h-12 flex justify-center items-center hover:-translate-y-1 transition-all"
         onClick={() => router.push('/')}  
       >
-        <ArrowLeft />Back to home
+        <ArrowLeft />{t('backToHome')}
       </Button>
       <div className="absolute pointer-events-none w-full bottom-4 flex justify-center items-center z-[1000]">
           <h1 className="text-3xl hover:scale-110 pointer-events-auto cursor-default opacity-65 hover:opacity-100 transition-all sm:text-5xl font-bold drop-shadow-2xl mb-5 shadow-white tracking-tighter bg-gradient-to-r from-sky-400 to-blue-600 text-transparent bg-clip-text animate-gradient"> 
-            SeaSense
+            {t('title')}
           </h1>
       </div>
       <Card className="absolute flex justify-center items-center text-zinc-700 p-3 top-4 left-20 z-[1000] w-max cursor-help opacity-70 hover:opacity-100 shadow-lg transition-all">
-        <p>Try to click on the map marks to see live data</p>
+        <p>{t('hint')}</p>
       </Card>
       {selectedLocation && (
         <LocationCard

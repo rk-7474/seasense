@@ -1,6 +1,7 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
+import { useTranslations } from 'next-intl'
 import {
   Card,
   CardContent,
@@ -11,7 +12,7 @@ import {
 import { Transition } from '@headlessui/react'
 import { AlertTriangle } from 'lucide-react'
 import { Location } from '@/lib/types'
-import { useRouter } from 'next/navigation'
+import { useRouter } from '@/lib/navigation'
 
 interface LocationCardProps {
   location: Location
@@ -20,6 +21,7 @@ interface LocationCardProps {
 }
 
 export default function LocationCard({ location, onClose, show }: LocationCardProps) {
+  const t = useTranslations('LocationCard');
   const metrics = location.metrics
   const isPhHigh = metrics.ph ? metrics.ph > 7.9 : false;
   const router = useRouter()
@@ -52,8 +54,8 @@ export default function LocationCard({ location, onClose, show }: LocationCardPr
             <div className="space-y-3 mb-4">
               <div className="space-y-1">
                 <div className="flex justify-between text-sm">
-                  <span>CO2 Level</span>
-                  <span>{metrics.co2 || "Unavailable"}</span>
+                  <span>{t('metrics.co2')}</span>
+                  <span>{metrics.co2 || t('metrics.unavailable')}</span>
                 </div>
                 <div className="h-2 bg-blue-100 rounded-full overflow-hidden">
                   {metrics.co2 ? <div 
@@ -70,8 +72,8 @@ export default function LocationCard({ location, onClose, show }: LocationCardPr
             
               <div className="space-y-1">
                 <div className="flex justify-between text-sm">
-                  <span>pH Level</span>
-                  <span>{metrics.ph || "Unavailable"}</span>
+                  <span>{t('metrics.ph')}</span>
+                  <span>{metrics.ph || t('metrics.unavailable')}</span>
                 </div>
                 <div className="h-2 bg-blue-100 rounded-full overflow-hidden">
                   {metrics.ph ? <div 
@@ -88,8 +90,8 @@ export default function LocationCard({ location, onClose, show }: LocationCardPr
               {/* Water Temperature */}
               <div className="space-y-1">
                 <div className="flex justify-between text-sm">
-                  <span>Water Temperature</span>
-                  <span>{metrics.temperature || "Unavailable"}{metrics.temperature && "°C"}</span>
+                  <span>{t('metrics.temperature')}</span>
+                  <span>{metrics.temperature || t('metrics.unavailable')}{metrics.temperature && "°C"}</span>
                 </div>
                 <div className="h-2 bg-blue-100 rounded-full overflow-hidden">
                   {metrics.temperature ? <div 
@@ -108,7 +110,7 @@ export default function LocationCard({ location, onClose, show }: LocationCardPr
                 <div className="flex items-center gap-2 p-3 mh-4 bg-yellow-50 border border-yellow-200 rounded-md">
                   <AlertTriangle className="h-10 w-10 mr-4 text-yellow-600" />
                   <p className="text-sm text-yellow-700">
-                    High pH level detected. Water quality may be affected.
+                    {t('warning.highPh')}
                   </p>
                 </div>
               )}
@@ -119,9 +121,9 @@ export default function LocationCard({ location, onClose, show }: LocationCardPr
                 variant="default" 
                 size="sm"
                 className="flex-1"
-                onClick={() => router.push(`/info/${location.id}`)}
+                onClick={() => router.push(`/info/${location.id}`, { scroll: false })}
               >
-                More Info
+                {t('buttons.moreInfo')}
               </Button>
               <Button 
                 variant="outline" 
@@ -129,7 +131,7 @@ export default function LocationCard({ location, onClose, show }: LocationCardPr
                 onClick={() => onClose()}
                 className="flex-1"
               >
-                Close
+                {t('buttons.close')}
               </Button>
             </div>
           </CardContent>

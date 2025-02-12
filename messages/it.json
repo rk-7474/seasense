@@ -1,0 +1,60 @@
+{
+    "Map": {
+        "backToHome": "Torna alla home",
+        "title": "SeaSense",
+        "hint": "Clicca sui segnaposti della mappa per vedere i dati in tempo reale"
+    },
+    "Index": {
+      "title": "SeaSense",
+      "subtitle": "Ascoltando il sussurro dell'oceano",
+      "description": "Immergiti in un'analisi completa dei dati oceanici, nella ricerca e nel monitoraggio. Lascia che il mare comprenda se stesso come mai prima d'ora.",
+      "poweredBy": "Offerto dal Team Planck",
+      "mapButton": "Guarda la mappa",
+      "features": {
+        "realTime": {
+          "title": "Analisi in tempo reale",
+          "description": "Monitora le condizioni oceaniche con flussi di dati in tempo reale e analisi avanzate"
+        },
+        "research": {
+          "title": "Strumenti di ricerca",
+          "description": "Accedi a strumenti potenti per la ricerca marina e la visualizzazione dei dati"
+        },
+        "global": {
+          "title": "Copertura globale",
+          "description": "Studia gli oceani in tutto il mondo con dati geografici completi"
+        }
+      }
+    },
+    "Info": {
+      "title": "Dettagli Sensore BOA",
+      "error": {
+        "notFound": "Sensore non trovato",
+        "loading": "Errore nel caricamento dei dati del sensore",
+        "tryAgain": "Per favore riprova più tardi"
+      },
+      "details": {
+        "type": "Tipo",
+        "coordinates": "Coordinate",
+        "metrics": {
+          "averagePh": "pH Medio",
+          "averageTemp": "Temperatura Media",
+          "averageCo2": "CO₂ Media"
+        }
+      }
+    },
+    "LocationCard": {
+      "metrics": {
+        "co2": "Livello di CO2",
+        "ph": "Livello di pH",
+        "temperature": "Temperatura dell'acqua",
+        "unavailable": "Non disponibile"
+      },
+      "warning": {
+        "highPh": "Rilevato alto livello di pH. La qualità dell'acqua potrebbe essere compromessa."
+      },
+      "buttons": {
+        "moreInfo": "Maggiori informazioni",
+        "close": "Chiudi"
+      }
+    }
+  }

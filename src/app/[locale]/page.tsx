@@ -2,10 +2,12 @@
 
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/lib/navigation";
 import { useState, useEffect } from "react";
+import { useTranslations } from 'next-intl';
 
 export default function Home() {
+  const t = useTranslations('Index');
   const router = useRouter();
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
@@ -57,7 +59,7 @@ export default function Home() {
       <div className="absolute top-0 left-0 w-full h-full bg-black/40 z-10" />
 
       <div className="absolute bottom-4 left-4 w-max h-max flex flex-row justify-center items-center">
-        <p className="text-lg text-white">Powered by Planck Team</p>
+          <p className="text-lg text-white">{t('poweredBy')}</p>
         <Image className="ml-3" alt="planck-logo" src="/planck_team_logo.png" width={55} height={40}/>
       </div>
 
@@ -67,22 +69,21 @@ export default function Home() {
       }`}>
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-5xl sm:text-7xl hover:scale-105 transition-all font-bold mb-6 drop-shadow-2xl shadow-white tracking-tighter bg-gradient-to-r from-sky-400 to-blue-600 text-transparent bg-clip-text animate-gradient"> 
-            SeaSense
+            {t('title')}
           </h1>
           <h2 className="text-2xl sm:text-4xl font-bold mb-6 tracking-tight">
-            Listening to the Ocean's Whisper
+            {t('subtitle')}
           </h2>
           <p className="text-lg sm:text-xl mb-8 text-gray-200 max-w-2xl mx-auto">
-            Dive into comprehensive ocean data analysis, research, and monitoring.
-            Let the sea understand itself like never before.
+            {t('description')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               size="lg"
               className="bg-blue-600 w-60 h-12 text-xl font-bold hover:bg-blue-700 text-white"
-              onClick={() => router.push('/map')}
+              onClick={() => router.push('/map', { scroll: false })}
             >
-              See the map
+              {t('mapButton')}
             </Button>
           </div>
         </div>
@@ -90,21 +91,21 @@ export default function Home() {
         {/* Features */}
         <div className="mt-20 grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-6xl mx-auto px-4">
           <div className="backdrop-blur-sm bg-white/10 p-6 rounded-lg">
-            <h3 className="text-xl font-semibold mb-3">Real-time Analysis</h3>
+            <h3 className="text-xl font-semibold mb-3">{t('features.realTime.title')}</h3>
             <p className="text-gray-200">
-              Monitor ocean conditions with live data streams and advanced analytics
+              {t('features.realTime.description')}
             </p>
           </div>
           <div className="backdrop-blur-sm bg-white/10 p-6 rounded-lg">
-            <h3 className="text-xl font-semibold mb-3">Research Tools</h3>
+            <h3 className="text-xl font-semibold mb-3">{t('features.research.title')}</h3>
             <p className="text-gray-200">
-              Access powerful tools for marine research and data visualization
+              {t('features.research.description')}
             </p>
           </div>
           <div className="backdrop-blur-sm bg-white/10 p-6 rounded-lg">
-            <h3 className="text-xl font-semibold mb-3">Global Coverage</h3>
+            <h3 className="text-xl font-semibold mb-3">{t('features.global.title')}</h3>
             <p className="text-gray-200">
-              Study oceans worldwide with comprehensive geographical data
+              {t('features.global.description')}
             </p>
           </div>
         </div>

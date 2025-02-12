@@ -1,0 +1,60 @@
+{
+  "Map": {
+    "backToHome": "Back to home",
+    "title": "SeaSense",
+    "hint": "Try to click on the map marks to see live data"
+  },
+  "Index": {
+    "title": "SeaSense",
+    "subtitle": "Listening to the Ocean's Whisper",
+    "description": "Dive into comprehensive ocean data analysis, research, and monitoring. Let the sea understand itself like never before.",
+    "poweredBy": "Powered by Planck Team",
+    "mapButton": "See the map",
+    "features": {
+      "realTime": {
+        "title": "Real-time Analysis",
+        "description": "Monitor ocean conditions with live data streams and advanced analytics"
+      },
+      "research": {
+        "title": "Research Tools",
+        "description": "Access powerful tools for marine research and data visualization"
+      },
+      "global": {
+        "title": "Global Coverage",
+        "description": "Study oceans worldwide with comprehensive geographical data"
+      }
+    }
+  },
+  "Info": {
+    "title": "BOA Sensor Details",
+    "error": {
+      "notFound": "Sensor not found",
+      "loading": "Error loading sensor data",
+      "tryAgain": "Please try again later"
+    },
+    "details": {
+      "type": "Type",
+      "coordinates": "Coordinates",
+      "metrics": {
+        "averagePh": "Average pH",
+        "averageTemp": "Average Temperature",
+        "averageCo2": "Average CO₂"
+      }
+    }
+  },
+  "LocationCard": {
+    "metrics": {
+      "co2": "CO2 Level",
+      "ph": "pH Level",
+      "temperature": "Water Temperature",
+      "unavailable": "Unavailable"
+    },
+    "warning": {
+      "highPh": "High pH level detected. Water quality may be affected."
+    },
+    "buttons": {
+      "moreInfo": "More Info",
+      "close": "Close"
+    }
+  }
+}
