@@ -56,5 +56,10 @@
       "moreInfo": "More Info",
       "close": "Close"
     }
+  },
+  "SensorCharts": {
+    "ph": "pH Levels",
+    "temperature": "Water Temperature",
+    "co2": "CO₂ Levels"
   }
 }

@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Line } from "react-chartjs-2"
 import {
@@ -62,11 +63,13 @@ const chartOptions = {
 }
 
 export default function SensorCharts({ sensor }: SensorChartsProps) {
+  const t = useTranslations('SensorCharts')
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       <Card>
         <CardHeader>
-          <CardTitle>pH Levels</CardTitle>
+          <CardTitle>{t('ph')}</CardTitle>
         </CardHeader>
         <CardContent>
           <Line 
@@ -77,7 +80,7 @@ export default function SensorCharts({ sensor }: SensorChartsProps) {
       </Card>
       <Card>
         <CardHeader>
-          <CardTitle>Water Temperature</CardTitle>
+          <CardTitle>{t('temperature')}</CardTitle>
         </CardHeader>
         <CardContent>
           <Line 
@@ -88,7 +91,7 @@ export default function SensorCharts({ sensor }: SensorChartsProps) {
       </Card>
       <Card>
         <CardHeader>
-          <CardTitle>CO₂ Levels</CardTitle>
+          <CardTitle>{t('co2')}</CardTitle>
         </CardHeader>
         <CardContent>
           <Line 

@@ -4,8 +4,6 @@ import { Suspense } from "react"
 import { useTranslations } from 'next-intl'
 
 export default async function InfoPage({ params } : { params: Promise<{ id: string }> }) {
-  const t = useTranslations('Info');
-
   try {
     const {id} = await params;
     const sensor = await getSensorData(id);
@@ -13,7 +11,7 @@ export default async function InfoPage({ params } : { params: Promise<{ id: stri
     if (!sensor) {
       return (
         <div className="container mx-auto p-8">
-          <h1 className="text-4xl font-bold text-red-500">{t('error.notFound')}</h1>
+          <h1 className="text-4xl font-bold text-red-500">Sensor not found</h1>
         </div>
       );
     }
@@ -31,8 +29,8 @@ export default async function InfoPage({ params } : { params: Promise<{ id: stri
     console.error("Error loading sensor data:", error);
     return (
       <div className="container mx-auto p-8">
-        <h1 className="text-4xl font-bold text-red-500">{t('error.loading')}</h1>
-        <p className="mt-4 text-gray-600">{t('error.tryAgain')}</p>
+        <h1 className="text-4xl font-bold text-red-500">Error loading sensor data</h1>
+        <p className="mt-4 text-gray-600">Try again later</p>
       </div>
     );
   }
