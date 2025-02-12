@@ -10,19 +10,8 @@ import {
 } from "./ui/card"
 import { Transition } from '@headlessui/react'
 import { AlertTriangle } from 'lucide-react'
-
-interface Location {
-  id: number
-  name: string
-  position: [number, number]
-  description?: string
-  type: string
-  metrics: {
-    co2: number
-    ph: number
-    temperature: number
-  }
-}
+import { Location } from '@/lib/types'
+import { useRouter } from 'next/navigation'
 
 interface LocationCardProps {
   location: Location
@@ -32,7 +21,8 @@ interface LocationCardProps {
 
 export default function LocationCard({ location, onClose, show }: LocationCardProps) {
   const metrics = location.metrics
-  const isPhHigh = metrics.ph > 7.9
+  const isPhHigh = metrics.ph ? metrics.ph > 7.9 : false;
+  const router = useRouter()
 
   return (
     <div className="absolute top-4 right-4 z-[1000] w-80">
@@ -59,33 +49,39 @@ export default function LocationCard({ location, onClose, show }: LocationCardPr
               {location.description}
             </p>
             
-            {/* Metrics Graph */}
             <div className="space-y-3 mb-4">
-              {/* CO2 Level */}
               <div className="space-y-1">
                 <div className="flex justify-between text-sm">
                   <span>CO2 Level</span>
-                  <span>{metrics.co2}</span>
+                  <span>{metrics.co2 || "Unavailable"}</span>
                 </div>
                 <div className="h-2 bg-blue-100 rounded-full overflow-hidden">
-                  <div 
+                  {metrics.co2 ? <div 
                     className="h-full bg-blue-500 rounded-full transition-all duration-500 ease-out"
                     style={{ width: `${metrics.co2}%` }}
-                  />
+                  /> :
+                  <div 
+                    className="h-full bg-red-500 rounded-full transition-all duration-500 ease-out"
+                    style={{ width: `100%` }}
+                  />}
                 </div>
               </div>
 
-              {/* pH Level */}
+            
               <div className="space-y-1">
                 <div className="flex justify-between text-sm">
                   <span>pH Level</span>
-                  <span>{metrics.ph}</span>
+                  <span>{metrics.ph || "Unavailable"}</span>
                 </div>
                 <div className="h-2 bg-blue-100 rounded-full overflow-hidden">
-                  <div 
+                  {metrics.ph ? <div 
                     className="h-full bg-blue-500 rounded-full transition-all duration-500 ease-out"
-                    style={{ width: `${metrics.ph / 14 * 100}%` }}
-                  />
+                    style={{ width: `${metrics.ph}%` }}
+                  /> :
+                  <div 
+                    className="h-full bg-red-500 rounded-full transition-all duration-500 ease-out"
+                    style={{ width: `100%` }}
+                  />}
                 </div>
               </div>
 
@@ -93,13 +89,17 @@ export default function LocationCard({ location, onClose, show }: LocationCardPr
               <div className="space-y-1">
                 <div className="flex justify-between text-sm">
                   <span>Water Temperature</span>
-                  <span>{metrics.temperature}°C</span>
+                  <span>{metrics.temperature || "Unavailable"}{metrics.temperature && "°C"}</span>
                 </div>
                 <div className="h-2 bg-blue-100 rounded-full overflow-hidden">
-                  <div 
+                  {metrics.temperature ? <div 
                     className="h-full bg-blue-500 rounded-full transition-all duration-500 ease-out"
                     style={{ width: `${metrics.temperature/35 * 100}%` }}
-                  />
+                  /> :
+                  <div 
+                    className="h-full bg-red-500 rounded-full transition-all duration-500 ease-out"
+                    style={{ width: `100%` }}
+                  />}
                 </div>
               </div>
 
@@ -119,6 +119,7 @@ export default function LocationCard({ location, onClose, show }: LocationCardPr
                 variant="default" 
                 size="sm"
                 className="flex-1"
+                onClick={() => router.push(`/info/${location.id}`)}
               >
                 More Info
               </Button>

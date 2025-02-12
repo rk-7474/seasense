@@ -10,6 +10,8 @@ import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
 import { Card } from './ui/card'
 import Image from 'next/image'
+import { Location } from '@/lib/types'
+import { getMapData } from '@/app/actions'
 
 // Fix for default markers
 const icon = L.icon({
@@ -22,80 +24,25 @@ const icon = L.icon({
   shadowSize: [41, 41]
 })
 
-interface Location {
-  id: number
-  name: string
-  position: [number, number]
-  description?: string
-  type: string
-  metrics: {
-    co2: number
-    ph: number
-    temperature: number
-  }
-}
-
-const locations: Location[] = [
-  {
-    id: 1,
-    name: "Sensor 1",
-    position: [45.414403, 12.288523],
-    type: "Fixed sensor",
-    description: "Coastal floating sensor",
-    metrics: {
-      co2: 45,  // mg/L
-      ph: 8.1,  // pH scale
-      temperature: 22  // °C
-    }
-  },
-  {
-    id: 2,
-    name: "Water station",
-    position: [45.389895, 12.301345],
-    type: "Data tower sensor",
-    description: "Stationary water monitoring",
-    metrics: {
-      co2: 50,  // mg/L
-      ph: 7.2,  // pH scale
-      temperature: 24  // °C
-    }
-  },
-  {
-    id: 3,
-    name: "Sensor 2",
-    position: [45.465775, 12.334476],
-    description: "Coastal floating sensor",
-    type: "Fixed sensor",
-    metrics: {
-      co2: 40,  // mg/L
-      ph: 8.0,  // pH scale
-      temperature: 25  // °C
-    }
-  },
-  {
-    id: 4,
-    name: "ROV Sensor",
-    position: [45.477042, 12.371589],
-    description: "Movable water vehicle",
-    type: "Movable sensor",
-    metrics: {
-      co2: 55,  // mg/L
-      ph: 7.8,  // pH scale
-      temperature: 23  // °C
-    }
-  }
-];
-
-
 export default function Map() {
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(null)
   const [isCardVisible, setIsCardVisible] = useState(false)
   const [isMapLoaded, setIsMapLoaded] = useState(false)
   const veniceCenter: [number, number] = [45.4371908, 12.3345898]
+  const [locations, setLocations] = useState<Location[]>([]);
   const router = useRouter();
 
   // Fallback to show map if loading takes too long
   useEffect(() => {
+    (async () => {
+      const data = await getMapData();
+      console.log("Map data received:", data);
+      if (!data || data.length === 0) {
+        console.warn("No locations data received");
+      }
+      setLocations(data || []);
+    })();
+
     const timer = setTimeout(() => {
       if (!isMapLoaded) {
         setIsMapLoaded(true);
