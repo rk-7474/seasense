@@ -78,7 +78,7 @@ export default function LocationCard({ location, onClose, show }: LocationCardPr
                 <div className="h-2 bg-blue-100 rounded-full overflow-hidden">
                   {metrics.ph ? <div 
                     className="h-full bg-blue-500 rounded-full transition-all duration-500 ease-out"
-                    style={{ width: `${metrics.ph}%` }}
+                    style={{ width: `${metrics.ph/16*100}%` }}
                   /> :
                   <div 
                     className="h-full bg-red-500 rounded-full transition-all duration-500 ease-out"
