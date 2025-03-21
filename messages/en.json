@@ -1,4 +1,25 @@
 {
+  "About": {
+    "title": "About Us - SeaSense",
+    "subtitle": "What's this all about?",
+    "mission": {
+        "title": "Our Mission",
+        "description": "SeaSense is dedicated to advancing ocean research and conservation through innovative technologies. We provide real-time monitoring and analysis of ocean conditions to support scientific research, environmental protection, and sustainable ocean management."
+    },
+    "vision": {
+        "title": "Our Vision",
+        "description": "We envision a world in which ocean ecosystems are understood, protected and thriving. Through data-driven insights and collaborative research, we aim to contribute to the health and sustainability of our oceans for future generations."
+    },
+    "technology": {
+        "title": "Our Technology.",
+        "description": "SeaSense uses a network of advanced sensors distributed throughout the ocean. These sensors continuously collect data on various parameters including temperature, pH levels, CO₂ concentrations, and more. Our platform processes this data to provide valuable public information to anyone who wants to access it."
+    },
+    "team": {
+        "title": "The Team",
+        "description": "SeaSense is developed by the Planck Team, a group of students at Max Planck in Treviso, Italy. Our interdisciplinary approach combines expertise in computer science, biology and chemistry, combined with mechanics and automation, to create innovative solutions for ocean monitoring and analysis."
+    },
+    "backToHome": "Back to Home"
+  },
   "Map": {
     "backToHome": "Back to home",
     "title": "SeaSense",
@@ -48,7 +69,8 @@
       "co2": "CO2 Level",
       "ph": "pH Level",
       "temperature": "Water Temperature",
-      "unavailable": "Unavailable"
+      "unavailable": "Unavailable",
+      "latestUpdate": "Latest Update: "
     },
     "warning": {
       "highPh": "High pH level detected. Water quality may be affected."

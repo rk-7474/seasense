@@ -1,4 +1,25 @@
 {
+    "About": {
+        "title": "Chi siamo - SeaSense",
+        "subtitle": "Perchè tutto questo?",
+        "mission": {
+            "title": "La Nostra Missione",
+            "description": "SeaSense è dedicata a promuovere la ricerca e la conservazione degli oceani attraverso tecnologie innovative. Forniamo monitoraggio e analisi in tempo reale delle condizioni oceaniche per supportare la ricerca scientifica, la protezione ambientale e la gestione sostenibile degli oceani."
+        },
+        "vision": {
+            "title": "La Nostra Visione",
+            "description": "Immaginiamo un mondo in cui gli ecosistemi oceanici siano compresi, protetti e prosperosi. Attraverso approfondimenti basati sui dati e ricerca collaborativa, miriamo a contribuire alla salute e alla sostenibilità dei nostri oceani per le generazioni future."
+        },
+        "technology": {
+            "title": "La Nostra Tecnologia",
+            "description": "SeaSense utilizza una rete di sensori avanzati distribuiti nell'oceano. Questi sensori raccolgono continuamente dati su vari parametri tra cui temperatura, livelli di pH, concentrazioni di CO₂ e altro. La nostra piattaforma elabora questi dati per fornire preziose informazioni pubblicamenta a chiunque voglia accedervi."
+        },
+        "team": {
+            "title": "Il Team",
+            "description": "SeaSense è sviluppato dal Planck Team, un gruppo di studenti del Max Planck di Treviso. Il nostro approccio interdisciplinare combina competenze in informatica, biologia e chimica, unite a meccanica e automazione, per creare soluzioni innovative per il monitoraggio e l'analisi degli oceani."
+        },
+        "backToHome": "Torna alla Home"
+    },
     "Map": {
         "backToHome": "Torna alla home",
         "title": "SeaSense",
@@ -8,7 +29,7 @@
       "title": "SeaSense",
       "subtitle": "Ascoltando il sussurro dell'oceano",
       "description": "Immergiti in un'analisi completa dei dati oceanici, nella ricerca e nel monitoraggio. Lascia che il mare comprenda se stesso come mai prima d'ora.",
-      "poweredBy": "Offerto dal Team Planck",
+      "poweredBy": "Offerto dal Planck Team",
       "mapButton": "Guarda la mappa",
       "aboutButton": "Maggiori informazioni",
       "features": {
@@ -27,7 +48,7 @@
       }
     },
     "Info": {
-      "title": "Dettagli Sensore BOA",
+      "title": "Dettagli sensore BOA",
       "error": {
         "notFound": "Sensore non trovato",
         "loading": "Errore nel caricamento dei dati del sensore",
@@ -37,9 +58,9 @@
         "type": "Tipo",
         "coordinates": "Coordinate",
         "metrics": {
-          "averagePh": "pH Medio",
-          "averageTemp": "Temperatura Media",
-          "averageCo2": "CO₂ Media"
+          "averagePh": "pH medio",
+          "averageTemp": "Temperatura media",
+          "averageCo2": "CO₂ medio"
         }
       }
     },
@@ -48,7 +69,8 @@
         "co2": "Livello di CO2",
         "ph": "Livello di pH",
         "temperature": "Temperatura dell'acqua",
-        "unavailable": "Non disponibile"
+        "unavailable": "Non disponibile",
+        "latestUpdate": "Ultimo aggiornamento: "
       },
       "warning": {
         "highPh": "Rilevato alto livello di pH. La qualità dell'acqua potrebbe essere compromessa."
