@@ -89,6 +89,13 @@ export default function Home() {
             >
               {t('mapButton')}
             </Button>
+            <Button
+              size="lg"
+              className="bg-blue-600 w-60 h-12 text-xl font-bold hover:bg-blue-700 text-white"
+              onClick={() => router.push('/about', { scroll: false })}
+            >
+              {t('aboutButton')}
+            </Button>
           </div>
         </div>
 
