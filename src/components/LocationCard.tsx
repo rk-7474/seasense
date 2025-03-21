@@ -50,6 +50,9 @@ export default function LocationCard({ location, onClose, show }: LocationCardPr
             <p className="text-sm text-muted-foreground mb-4">
               {location.description}
             </p>
+            <p className="text-sm text-muted-foreground mb-4">
+              {t('metrics.latestUpdate') + location.latestUpdate}
+            </p>
             
             <div className="space-y-3 mb-4">
               <div className="space-y-1">

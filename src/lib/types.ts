@@ -11,4 +11,5 @@ export interface Location {
     description?: string
     type: string
     metrics: Metrics
+    latestUpdate: number
 }

@@ -139,6 +139,7 @@ export const getMapData = async () => {
       name: sensor.name,
       type: sensor.type,
       description: sensor.description,
+      latestUpdate: sensor.timestamp,
       position: [Number(sensor.latitude), Number(sensor.longitude)],
       metrics: sensor.latestData ? {
         co2: (sensor.latestData as Metrics).co2,
