@@ -10,6 +10,7 @@
       "description": "Immergiti in un'analisi completa dei dati oceanici, nella ricerca e nel monitoraggio. Lascia che il mare comprenda se stesso come mai prima d'ora.",
       "poweredBy": "Offerto dal Team Planck",
       "mapButton": "Guarda la mappa",
+      "aboutButton": "Maggiori informazioni",
       "features": {
         "realTime": {
           "title": "Analisi in tempo reale",

@@ -10,6 +10,7 @@
     "description": "Dive into comprehensive ocean data analysis, research, and monitoring. Let the sea understand itself like never before.",
     "poweredBy": "Powered by Planck Team",
     "mapButton": "See the map",
+    "aboutButton": "More infos",
     "features": {
       "realTime": {
         "title": "Real-time Analysis",
