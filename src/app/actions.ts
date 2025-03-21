@@ -4,6 +4,7 @@ import { db } from "@/lib/drizzle";
 import { received_data, sensors } from "@/lib/schema";
 import { eq, sql, and } from 'drizzle-orm';
 import { Location, Metrics } from "@/lib/types";
+import moment from "moment";
 
 export interface SensorData {
   id: number;
@@ -20,6 +21,7 @@ export interface SensorData {
     ph: number[];
     temperature: number[];
     co2: number[];
+    timestamps: string[];
   };
 }
 
@@ -36,39 +38,34 @@ export async function getSensorData(id: string): Promise<SensorData> {
       throw new Error("Sensor not found");
     }
 
-    // Get the last 10 days of data
-    const tenDaysAgo = new Date();
-    tenDaysAgo.setDate(tenDaysAgo.getDate() - 10);
-    
-    const formattedDate = tenDaysAgo.toISOString();
-
     const sensorData = await db
       .select({
         data: received_data.data,
         timestamp: received_data.timestamp,
       })
       .from(received_data)
-      .where(
-        and(
-          eq(received_data.sensorId, parseInt(id)),
-          sql`${received_data.timestamp} >= ${formattedDate}::timestamp`
-        )
-      )
-      .orderBy(received_data.timestamp);
+      .where(eq(received_data.sensorId, parseInt(id)))
+      .orderBy(sql`${received_data.timestamp} DESC`)
+      .limit(10);
 
-    // Process the data for charts
     const dailyData = {
       ph: [] as number[],
       temperature: [] as number[],
       co2: [] as number[],
+      timestamps: [] as string[],
     };
 
-    sensorData.forEach((record) => {
-      const metrics = record.data as any;
+    for (let i = sensorData.length - 1; i >= 0; i--) {
+      const metrics = sensorData[i].data as any;
+      const timestamp = sensorData[i].timestamp;
+      
       dailyData.ph.push(metrics.ph || 0);
       dailyData.temperature.push(metrics.temperature || 0);
       dailyData.co2.push(metrics.co2 || 0);
-    });
+      
+      const formattedDate = moment(timestamp).format('DD-MM-YYYY') 
+      dailyData.timestamps.push(formattedDate);
+    }
 
     // Calculate averages
     const averages = {
@@ -77,7 +74,6 @@ export async function getSensorData(id: string): Promise<SensorData> {
       co2: dailyData.co2.reduce((a, b) => a + b, 0) / dailyData.co2.length || 0,
     };
 
-    // Format coordinates
     const coordinates = `${sensorInfo[0].latitude}° N, ${sensorInfo[0].longitude}° E`;
 
     return {
@@ -124,7 +120,7 @@ export const getMapData = async () => {
     .orderBy(sensors.id);
 
     const map = new Map();
-    data.forEach(obj => map.set(obj.id, obj)); // Replace previous objects with the same id
+    data.forEach(obj => map.set(obj.id, obj));
     const result = [...map.values()];
   
     console.log("Raw database result:", result);

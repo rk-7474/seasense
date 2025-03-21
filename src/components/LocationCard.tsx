@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { useTranslations } from 'next-intl'
+import moment from 'moment';
 import {
   Card,
   CardContent,
@@ -51,7 +52,7 @@ export default function LocationCard({ location, onClose, show }: LocationCardPr
               {location.description}
             </p>
             <p className="text-sm text-muted-foreground mb-4">
-              {t('metrics.latestUpdate') + location.latestUpdate}
+              {t('metrics.latestUpdate') + moment(location.latestUpdate).format('DD-MM-YYYY hh:mm')}
             </p>
             
             <div className="space-y-3 mb-4">

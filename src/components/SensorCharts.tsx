@@ -30,23 +30,26 @@ interface SensorChartsProps {
   sensor: SensorData;
 }
 
-const createChartData = (label: string, data: number[], color: string) => ({
-  labels: data.map((_, i) => {
-    const date = new Date()
-    date.setDate(date.getDate() - (data.length - 1 - i))
-    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
-  }),
-  datasets: [
-    {
-      label,
-      data,
-      borderColor: color,
-      backgroundColor: color + '20',
-      fill: true,
-      tension: 0.4
-    }
-  ]
-})
+const createChartData = (label: string, data: number[], color: string, timestamps: string[]) => {
+  // Get the latest 10 data points or all if less than 10
+  const latestData = data.slice(-10)
+  const latestTimestamps = timestamps.slice(-10)
+  
+  return {
+    // Use the formatted timestamps as labels (DD-MM-YYYY)
+    labels: latestTimestamps,
+    datasets: [
+      {
+        label,
+        data: latestData,
+        borderColor: color,
+        backgroundColor: color + '20',
+        fill: true,
+        tension: 0.4
+      }
+    ]
+  }
+}
 
 const chartOptions = {
   responsive: true,
@@ -73,7 +76,7 @@ export default function SensorCharts({ sensor }: SensorChartsProps) {
         </CardHeader>
         <CardContent>
           <Line 
-            data={createChartData('pH', sensor.dailyData.ph, '#2563eb')}
+            data={createChartData('pH', sensor.dailyData.ph, '#2563eb', sensor.dailyData.timestamps)}
             options={chartOptions}
           />
         </CardContent>
@@ -84,7 +87,7 @@ export default function SensorCharts({ sensor }: SensorChartsProps) {
         </CardHeader>
         <CardContent>
           <Line 
-            data={createChartData('Temperature (°C)', sensor.dailyData.temperature, '#dc2626')}
+            data={createChartData('Temperature (°C)', sensor.dailyData.temperature, '#dc2626', sensor.dailyData.timestamps)}
             options={chartOptions}
           />
         </CardContent>
@@ -95,7 +98,7 @@ export default function SensorCharts({ sensor }: SensorChartsProps) {
         </CardHeader>
         <CardContent>
           <Line 
-            data={createChartData('CO₂ (ppm)', sensor.dailyData.co2, '#059669')}
+            data={createChartData('CO₂ (ppm)', sensor.dailyData.co2, '#059669', sensor.dailyData.timestamps)}
             options={chartOptions}
           />
         </CardContent>
