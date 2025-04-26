@@ -3,14 +3,29 @@ import { db } from '@/lib/drizzle';
 import { received_data, sensors } from '@/lib/schema';
 import { eq } from 'drizzle-orm';
 
-export async function POST(request: NextRequest) {
+export async function GET(request: NextRequest) {
   try {
-    const body = await request.json();
+    const searchParams = request.nextUrl.searchParams;
+  
+    const data = new Map<string, number>();
+
+    searchParams.entries().forEach(([key, value]) => {
+      data.set(key, Number(value));
+    });
     
     // Validate request body
-    if (!body.sensorId || !body.data) {
+    if (!data.has('sensorId')) {
       return NextResponse.json(
         { error: 'Missing required fields: sensorId and data' },
+        { status: 400 }
+      );
+    }
+
+    const sensorId = data.get('sensorId') as number;
+
+    if (isNaN(sensorId)) {
+      return NextResponse.json(
+        { error: 'Invalid sensorId. It must be a number' },
         { status: 400 }
       );
     }
@@ -19,7 +34,7 @@ export async function POST(request: NextRequest) {
     const sensorExists = await db
       .select({ id: sensors.id })
       .from(sensors)
-      .where(eq(sensors.id, body.sensorId))
+      .where(eq(sensors.id, sensorId))
       .limit(1);
 
     if (!sensorExists || sensorExists.length === 0) {
@@ -30,7 +45,10 @@ export async function POST(request: NextRequest) {
     }
 
     // Validate data structure
-    const { ph, temperature, co2 } = body.data;
+    const ph = data.get('ph');  
+    const temperature = data.get('temperature');  
+    const co2 = data.get('co2');
+
     if (
       (ph !== undefined && typeof ph !== 'number' && ph !== null) ||
       (temperature !== undefined && typeof temperature !== 'number' && temperature !== null) ||
@@ -44,8 +62,8 @@ export async function POST(request: NextRequest) {
 
     // Insert data into the database
     const result = await db.insert(received_data).values({
-      sensorId: body.sensorId,
-      data: body.data,
+      sensorId: sensorId,
+      data: JSON.stringify({ ph, temperature, co2 }),
       // timestamp will be set to current time by default
     }).returning();
 
