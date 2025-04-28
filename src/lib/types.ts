@@ -12,4 +12,5 @@ export interface Location {
     type: string
     metrics: Metrics
     latestUpdate: number
+    isActive: boolean
 }

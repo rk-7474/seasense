@@ -1,4 +1,4 @@
-import { integer, jsonb, numeric, pgTable, serial, text, timestamp, varchar } from "drizzle-orm/pg-core";
+import { boolean, integer, jsonb, numeric, pgTable, serial, text, timestamp, varchar } from "drizzle-orm/pg-core";
 
 // Define the sensors table
 export const sensors = pgTable('devices_infos', {
@@ -8,6 +8,7 @@ export const sensors = pgTable('devices_infos', {
     description: text('description').notNull(),
     longitude: numeric('longitude').notNull(),
     latitude: numeric('latitude').notNull(),
+    isActive: boolean('is_active').default(false).notNull(),
 });
 
 export const received_data = pgTable('received_data', {

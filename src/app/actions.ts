@@ -104,6 +104,7 @@ export const getMapData = async () => {
       latitude: sensors.latitude,
       latestData: received_data.data,
       timestamp: received_data.timestamp,
+      isActive: sensors.isActive,
     })
     .from(sensors)
     .leftJoin(
@@ -123,7 +124,7 @@ export const getMapData = async () => {
     data.forEach(obj => map.set(obj.id, obj));
     const result = [...map.values()];
   
-    console.log("Raw database result:", result);
+    // console.log("Raw database result:", result);
     
     if (!result || result.length === 0) {
       console.log("No sensors found in the database");
@@ -136,6 +137,7 @@ export const getMapData = async () => {
       type: sensor.type,
       description: sensor.description,
       latestUpdate: sensor.timestamp,
+      isActive: sensor.isActive,
       position: [Number(sensor.latitude), Number(sensor.longitude)],
       metrics: sensor.latestData ? {
         co2: (sensor.latestData as Metrics).co2,
