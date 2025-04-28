@@ -30,7 +30,8 @@ export default function Map() {
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(null)
   const [isCardVisible, setIsCardVisible] = useState(false)
   const [isMapLoaded, setIsMapLoaded] = useState(false)
-  const veniceCenter: [number, number] = [45.4371908, 12.3345898]
+  // const veniceCenter: [number, number] = [45.4371908, 12.3345898]
+  const mapCenter: [number, number] = [41.749806, 21.580061];
   const [locations, setLocations] = useState<Location[]>([]);
   const router = useRouter();
 
@@ -41,7 +42,6 @@ export default function Map() {
     const fetchData = async () => {
       try {
         const data = await getMapData();
-        console.log("Map data received:", data);
         if (!data || data.length === 0) {
           console.warn("No locations data received");
         }
@@ -117,8 +117,8 @@ export default function Map() {
         isMapLoaded ? 'opacity-100' : 'opacity-0'
       }`}>
         <MapContainer 
-          center={veniceCenter}
-          zoom={12} 
+          center={mapCenter}
+          zoom={6} 
           minZoom={5} 
           scrollWheelZoom={true}
           style={{ width: '100%', height: '100%' }}
