@@ -32,6 +32,7 @@
     "poweredBy": "Powered by Planck Team",
     "mapButton": "See the map",
     "aboutButton": "More infos",
+    "ecoScannerButton": "Ecoscanner video",
     "features": {
       "realTime": {
         "title": "Real-time Analysis",
